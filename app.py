@@ -3,18 +3,48 @@ import pandas as pd
 import time
 from datetime import datetime
 
+# -----------------------------
+# PAGE CONFIG
+# -----------------------------
 st.set_page_config(page_title="Odaa Namee Hotel System", layout="wide")
+
+# -----------------------------
+# 🎨 BACKGROUND STYLE (RED-GREEN-RED)
+# -----------------------------
+st.markdown(
+    """
+    <style>
+    .stApp {
+        background: linear-gradient(90deg, red, green, red);
+        background-attachment: fixed;
+        color: white;
+    }
+
+    /* Card-like containers */
+    div[data-testid="stDataFrame"] {
+        background-color: rgba(255,255,255,0.85);
+        border-radius: 10px;
+        padding: 10px;
+    }
+
+    /* Sidebar styling */
+    section[data-testid="stSidebar"] {
+        background-color: rgba(0,0,0,0.4);
+    }
+
+    /* Input styling */
+    input, select, textarea {
+        border-radius: 8px !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # -----------------------------
 # 🌈 ANIMATED WELCOME BANNER
 # -----------------------------
-colors = [
-    "#1F618D",  # blue
-    "#27AE60",  # green
-    "#8E44AD",  # purple
-    "#E67E22",  # orange
-    "#C0392B"   # red
-]
+colors = ["#ff0000", "#00cc44", "#ff0000"]
 
 if "color_index" not in st.session_state:
     st.session_state.color_index = 0
@@ -22,7 +52,6 @@ if "color_index" not in st.session_state:
 if "last_update" not in st.session_state:
     st.session_state.last_update = time.time()
 
-# Change color every 10 seconds
 if time.time() - st.session_state.last_update > 10:
     st.session_state.color_index = (st.session_state.color_index + 1) % len(colors)
     st.session_state.last_update = time.time()
@@ -32,14 +61,13 @@ current_color = colors[st.session_state.color_index]
 
 st.markdown(
     f"""
-    <h1 style='text-align:center; color:{current_color}; font-size:50px;'>
+    <h1 style='text-align:center; color:{current_color}; font-size:52px;'>
     🏨 Welcome to Odaa Namee Hotel
     </h1>
-
-    <h3 style='text-align:center; color:#555;'>
+    <h3 style='text-align:center; color:white;'>
     Luxury • Comfort • Excellence
     </h3>
-    <hr>
+    <hr style='border:1px solid white;'>
     """,
     unsafe_allow_html=True
 )
@@ -69,9 +97,10 @@ if "guests" not in st.session_state:
     st.session_state.guests = []
 
 # -----------------------------
-# 📌 SIDEBAR MENU
+# 📌 SIDEBAR NAVIGATION
 # -----------------------------
 st.sidebar.title("🏨 Odaa Namee Hotel")
+
 menu_option = st.sidebar.radio(
     "Navigation",
     ["Dashboard", "Menu", "Rooms", "Room Service", "Guests", "Billing"]
@@ -92,7 +121,7 @@ if menu_option == "Dashboard":
     st.dataframe(pd.DataFrame(st.session_state.rooms))
 
 # -----------------------------
-# 🍽 MENU MANAGEMENT
+# 🍽 MENU
 # -----------------------------
 elif menu_option == "Menu":
     st.title("🍽 Menu Management")
@@ -109,7 +138,7 @@ elif menu_option == "Menu":
     st.dataframe(pd.DataFrame(st.session_state.menu))
 
 # -----------------------------
-# 🛏 ROOM MANAGEMENT
+# 🛏 ROOMS
 # -----------------------------
 elif menu_option == "Rooms":
     st.title("🛏 Room Management")
@@ -155,7 +184,7 @@ elif menu_option == "Room Service":
     st.dataframe(pd.DataFrame(st.session_state.orders))
 
 # -----------------------------
-# 👤 GUEST MANAGEMENT
+# 👤 GUESTS
 # -----------------------------
 elif menu_option == "Guests":
     st.title("👤 Guest Management")
@@ -177,7 +206,7 @@ elif menu_option == "Guests":
     st.dataframe(pd.DataFrame(st.session_state.guests))
 
 # -----------------------------
-# 💰 BILLING SYSTEM
+# 💰 BILLING
 # -----------------------------
 elif menu_option == "Billing":
     st.title("💰 Billing System")
@@ -185,8 +214,7 @@ elif menu_option == "Billing":
     if st.session_state.orders:
         df = pd.DataFrame(st.session_state.orders)
 
-        total_revenue = df["total"].sum()
-        st.metric("Total Revenue (ETB)", total_revenue)
+        st.metric("Total Revenue (ETB)", df["total"].sum())
 
         st.subheader("Order Details")
         st.dataframe(df)
