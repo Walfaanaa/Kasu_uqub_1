@@ -9,40 +9,52 @@ from datetime import datetime
 st.set_page_config(page_title="Odaa Namee Hotel System", layout="wide")
 
 # -----------------------------
-# 🎨 BACKGROUND STYLE (RED-GREEN-RED)
+# 🎨 GLOBAL STYLE (BACKGROUND + HEADER)
 # -----------------------------
 st.markdown(
     """
     <style>
+
+    /* 🔴🟢 RED-GREEN-RED BACKGROUND */
     .stApp {
         background: linear-gradient(90deg, red, green, red);
         background-attachment: fixed;
         color: white;
     }
 
-    /* Card-like containers */
+    /* 🔵 TOP HEADER (SHARE BAR AREA) */
+    header[data-testid="stHeader"] {
+        background-color: #1e3a8a !important;
+    }
+
+    header[data-testid="stHeader"] * {
+        color: white !important;
+    }
+
+    /* SIDEBAR */
+    section[data-testid="stSidebar"] {
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    /* DATAFRAMES CARD STYLE */
     div[data-testid="stDataFrame"] {
-        background-color: rgba(255,255,255,0.85);
+        background-color: rgba(255,255,255,0.90);
         border-radius: 10px;
         padding: 10px;
     }
 
-    /* Sidebar styling */
-    section[data-testid="stSidebar"] {
-        background-color: rgba(0,0,0,0.4);
-    }
-
-    /* Input styling */
+    /* INPUT FIELDS */
     input, select, textarea {
         border-radius: 8px !important;
     }
+
     </style>
     """,
     unsafe_allow_html=True
 )
 
 # -----------------------------
-# 🌈 ANIMATED WELCOME BANNER
+# 🌈 ANIMATED WELCOME TITLE
 # -----------------------------
 colors = ["#ff0000", "#00cc44", "#ff0000"]
 
@@ -62,10 +74,10 @@ current_color = colors[st.session_state.color_index]
 st.markdown(
     f"""
     <h1 style='text-align:center; color:{current_color}; font-size:52px;'>
-    🏨 Welcome to Odaa Namee Hotel
+        🏨 Welcome to Odaa Namee Hotel
     </h1>
     <h3 style='text-align:center; color:white;'>
-    Luxury • Comfort • Excellence
+        Luxury • Comfort • Excellence
     </h3>
     <hr style='border:1px solid white;'>
     """,
@@ -73,7 +85,7 @@ st.markdown(
 )
 
 # -----------------------------
-# 📦 SESSION STATE DATA
+# 📦 SESSION STATE INIT
 # -----------------------------
 if "menu" not in st.session_state:
     st.session_state.menu = [
@@ -97,7 +109,7 @@ if "guests" not in st.session_state:
     st.session_state.guests = []
 
 # -----------------------------
-# 📌 SIDEBAR NAVIGATION
+# 📌 SIDEBAR MENU
 # -----------------------------
 st.sidebar.title("🏨 Odaa Namee Hotel")
 
