@@ -67,7 +67,7 @@ st.markdown(
 # -------------------------------
 # 2️⃣ Load Members Data
 # -------------------------------
-DATA_FILE = "AO_uqubii.xlsx"
+DATA_FILE = "Kaasuu.xlsx"
 WINNER_FILE = "winners_record.xlsx"
 
 try:
