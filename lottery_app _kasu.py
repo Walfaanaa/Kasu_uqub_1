@@ -22,7 +22,7 @@ st.set_page_config(
 APP_DIR = Path(__file__).resolve().parent
 
 ENV_FILE = APP_DIR / ".env"
-DATA_FILE = APP_DIR / "AO_uqubii.xlsx"
+DATA_FILE = APP_DIR / "Kaasuu.xlsx"
 WINNER_FILE = APP_DIR / "winners_record.xlsx"
 
 # Load environment variables from the app's own folder.
